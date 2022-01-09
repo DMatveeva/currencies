@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: currencies-dep
+  labels:
+    app: back
+spec:
+  selector:
+    matchLabels:
+      octopusexport: OctopusExport
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: back
+        octopusexport: OctopusExport
+    spec:
+      containers:
+        - name: currencies
+          image: 'docker.io/darya2019/currencies:latest'
+          ports:
+            - containerPort: 8081
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              podAffinityTerm:
+                labelSelector:
+                  matchExpressions:
+                    - key: app
+                      operator: In
+                      values:
+                        - web
+                topologyKey: kubernetes.io/hostname
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend
+spec:
+  type: ClusterIP
+  selector:
+    app: back
+  ports:
+  - name: grpc
+    port: 5000
+    targetPort: 8081
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-external
+spec:
+  type: LoadBalancer
+  selector:
+    app: back
+  ports:
+  - name: http
+    port: 80
+    targetPort: 8081

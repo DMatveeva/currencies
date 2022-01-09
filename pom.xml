@@ -75,7 +75,7 @@
                 <version>3.1.4</version>
                 <configuration>
                     <to>
-                        <image>darya2019.currencies</image>
+                        <image>docker.io/darya2019/currencies</image>
                     </to>
                     <container>
                         <ports>
