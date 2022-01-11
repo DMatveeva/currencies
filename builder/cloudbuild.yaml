@@ -1,7 +1,9 @@
 steps:
 #step 1
-- name: 'maven:3-jdk-11'
-  args: [ 'package' ]
+- name: 'gcr.io/cloud-builders/mvn'
+  args:
+  # Compiles the application.
+  - compile
 #step 2
 - name: 'gcr.io/cloud-builders/docker'
   args: [
