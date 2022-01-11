@@ -1,9 +1,7 @@
 steps:
 #step 1
 - name: 'gcr.io/cloud-builders/mvn'
-  args:
-  # Compiles the application.
-  - compile
+  args: ['package']
 #step 2
 - name: 'gcr.io/cloud-builders/docker'
   args: [
