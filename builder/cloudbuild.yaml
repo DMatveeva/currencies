@@ -1,0 +1,15 @@
+steps:
+#step 1
+- name: 'docker.io/darya2019/currencies'
+  args: [
+   'build',
+   '-t',
+   'docker.io/darya2019/currencies:latest',
+   '.'
+  ]
+#step 2
+- name: 'gcr.io/cloud-builders/kubectl'
+  args: ['apply', '-f', 'release/']
+  env:
+  - 'CLOUDSDK_COMPUTE_ZONE=us-central1-c'
+  - 'CLOUDSDK_CONTAINER_CLUSTER=cluster-1'
