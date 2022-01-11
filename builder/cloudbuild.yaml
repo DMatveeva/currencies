@@ -1,5 +1,8 @@
 steps:
 #step 1
+- name: 'maven:3-jdk-11'
+  args: [ 'package' ]
+#step 2
 - name: 'gcr.io/cloud-builders/docker'
   args: [
    'build',
@@ -7,7 +10,7 @@ steps:
    'docker.io/darya2019/currencies:latest',
    '.'
   ]
-#step 2
+#step 3
 - name: 'gcr.io/cloud-builders/kubectl'
   args: ['apply', '-f', 'release/']
   env:
