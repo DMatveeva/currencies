@@ -1,6 +1,6 @@
 steps:
 #step 1
-- name: 'docker.io/darya2019/currencies'
+- name: 'gcr.io/cloud-builders/docker'
   args: [
    'build',
    '-t',
